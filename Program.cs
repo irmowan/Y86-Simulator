@@ -15,6 +15,9 @@ namespace PipeLine
 		Memory M = new Memory();
 		Write W = new Write();
 		public ArrayList InsMemory;
+		byte[] Memory = new byte[67108864];
+		int[] register = new int[8];
+
 		private bool TestHex(char x) {
 			if (x >= '0' & x <= '9' | x >= 'a' & x <= 'f')
 				return true;
@@ -23,7 +26,7 @@ namespace PipeLine
 
 		private int hex2int(char x) {
 			if (x >= '0' & x <= '9')
-				return x - 32;
+				return x - '0';
 			return x - 97 + 10;
 		}
 
@@ -38,6 +41,15 @@ namespace PipeLine
 				String valid = temp2 [temp2.Length - 1];
 				if (String.IsNullOrWhiteSpace (valid))
 					continue;
+				String address = temp2 [0].Split ('x') [1];
+				//Console.Write ( address);
+				int InsAddress = 0;
+				for (int i = 0; i < address.Length; ++i) {
+					InsAddress = (InsAddress << 4) + hex2int (address [i]);
+				}
+				while (InsAddress * 2 > InsMemory.Count) {
+					InsMemory.Add (0);
+				}
 				for (int i = 0; i < valid.Length; ++i) {
 					if (TestHex (valid [i])) {
 						InsMemory.Add (valid [i]);
@@ -46,7 +58,6 @@ namespace PipeLine
 			}
 			for (int i = 0; i < InsMemory.Count; ++i)
 				Console.Write (InsMemory [i]);
-			//return InsMemory;
 		}
 
 		public void print() {
@@ -67,11 +78,11 @@ namespace PipeLine
 			
 		}
 		public void GoByOneStep() {
-			F.run ();
-			D.run ();
-			E.run ();
-			M.run ();
-			W.run ();
+			F.FetchMain ();
+			D.DecodeMain ();
+			E.ExecuteMain ();
+			M.MemoryMain ();
+			W.WriteMain ();
 		}
 		public static void Main (string[] args) {
 			StreamReader File = LoadFile ();

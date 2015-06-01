@@ -41,6 +41,7 @@
     <Compile Include="Execute.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Write.cs" />
+    <Compile Include="Control.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

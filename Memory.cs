@@ -2,7 +2,7 @@
 
 namespace PipeLine
 {
-	class Memory:Constant {
+	class Memory:Program {
 		private int mem__addr() {
 			if (M_icode == IRMMOVL || M_icode == IPUSHL || M_icode == ICALL || M_icode == IMRMOVL)
 				return M_valE;
@@ -25,7 +25,8 @@ namespace PipeLine
 				return SADR;
 			return M_stat;
 		}
-		public void run() {
+		public void MemoryMain() {
+			return;
 		}
 
 	}	

@@ -3,7 +3,7 @@
 namespace PipeLine
 {
 
-	class Write:Constant {
+	class Write:Program {
 		private int w__dstE() {
 			return W_dstE;
 		}
@@ -21,7 +21,8 @@ namespace PipeLine
 				return SAOK;
 			return W_stat;
 		}
-		public void run() {
+		public void WriteMain() {
+			return;
 		}
 	}
 }

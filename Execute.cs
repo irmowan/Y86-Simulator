@@ -2,7 +2,7 @@
 
 namespace PipeLine
 {
-	class Execute:Constant {
+	class Execute:Program {
 		private int aluA() {
 			if (E_icode == IRMMOVL || E_icode == IOPL)
 				return E_valA;
@@ -49,7 +49,8 @@ namespace PipeLine
 				return RNONE;
 			return E_dstE;
 		}
-		public void run() {
+		public void ExecuteMain() {
+			return;
 		}
 	}
 }

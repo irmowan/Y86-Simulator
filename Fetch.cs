@@ -2,8 +2,8 @@
 
 namespace PipeLine
 {
-	class Fetch:Constant {
-
+	class Fetch:Program {
+		private int f_pc;
 		private int f__pc () {
 			if (M_icode == IJXX && !M_Cnd) return M_valA;
 			if (M_icode == IRET) return W_valM;
@@ -52,7 +52,14 @@ namespace PipeLine
 				return f_valC;
 			return f_valP;
 		}
-		public void run() {
+		public void FetchMain() {
+			f_pc = f__pc ();
+			imem_icode = InsMemory[f_pc]  >> 4;
+			imem_ifun = InsMemory[f_pc] & 0x0f;
+			Console.Write (imem_icode);
+			Console.WriteLine (imem_ifun);
+
+			return;
 		}
 	}
 

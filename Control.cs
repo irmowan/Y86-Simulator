@@ -2,12 +2,12 @@
 
 namespace PipeLine
 {
-	public class Control:Constant
+	class Control:Program
 	{
 		// Should I stall or inject a bubble into Pipeline Register F?
 		// At most one of these can be true.
 		private bool F__bubble() {
-			return 0;
+			return false;
 		}
 		private bool F__stall() {
 			bool flag1, flag2, flag3;
@@ -46,13 +46,13 @@ namespace PipeLine
 				flag2 = true;
 			if (E_dstM == d_srcA || E_dstM == d_srcB)
 				flag3 = true;
-			if (D_icode = IRET || E_icode == IRET || M_icode == IRET)
+			if (D_icode == IRET || E_icode == IRET || M_icode == IRET)
 				flag4 = true;
 			return flag1 || !(flag2 && flag3) && flag4;
 		}
 		//Should I stall or inject a bubble into Pipeline Register E?
 		private bool E__stall() {
-			return 0;
+			return false;
 		}
 		private bool E__bubble() {
 			bool flag1, flag2, flag3;
@@ -69,7 +69,7 @@ namespace PipeLine
 		// Should I stall or inject a bubble into Pipeline Register M?
 		// At most one of these can be true.
 		private bool M__stall() {
-			return 0;
+			return false;
 		}
 		// Start injecting bubbles as soon as exception passes through memory stage
 		private bool M__bubble() {
@@ -88,10 +88,11 @@ namespace PipeLine
 			return false;
 		}
 		private bool W__bubble() {
-			return 0;
+			return false;
 		}
 		public Control ()
 		{
+			return;
 		}
 	}
 }

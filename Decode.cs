@@ -2,7 +2,7 @@
 
 namespace PipeLine
 {
-	class Decode:Constant {
+	class Decode:Program {
 		private int d__srcA() {
 			if (D_icode == IRRMOVL || D_icode == IRMMOVL || D_icode == IOPL || D_icode == IPUSHL)
 				return D_rA;
@@ -57,7 +57,8 @@ namespace PipeLine
 				return W_valE;
 			return d_rvalB;
 		}
-		public void run() {
+		public void DecodeMain() {
+			return;
 		}
 	}
 }

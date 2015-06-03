@@ -3,7 +3,6 @@
 namespace PipeLine
 {
 	class Fetch:Program {
-		private int f_pc;
 		private int f__pc () {
 			if (M_icode == IJXX && !M_Cnd) return M_valA;
 			if (M_icode == IRET) return W_valM;
@@ -52,14 +51,52 @@ namespace PipeLine
 				return f_valC;
 			return f_valP;
 		}
+
+		private int f__valP() {
+			int ans = f_pc;
+			ans = ans + 1;
+			if (f_need_regids)
+				ans = ans + 1;
+			if (f_need_valC)
+				ans = ans + 4;
+			return ans;
+		}
 		public void FetchMain() {
+
 			f_pc = f__pc ();
 			imem_icode = InsMemory[f_pc]  >> 4;
 			imem_ifun = InsMemory[f_pc] & 0x0f;
+
+			f_icode = f__icode ();
+			f_ifun = f__ifun ();
+			f_need_valC = need__valC ();
+			f_need_regids = need__regids ();
+			instr_valid = instr__valid ();
+			f_valP = f__valP ();
+			if (f_need_regids) {
+				f_rA = InsMemory [f_pc + 1] >> 4;
+				f_rB = InsMemory [f_pc + 1] & 0x0f;
+			} else {
+				f_rA = RNONE;
+				f_rB = RNONE;
+			}
+			if (f_need_regids && f_need_valC)
+				f_valC = GetValC (f_pc + 2);
+			else if (f_need_valC)
+				f_valC = GetValC (f_pc + 1);
+			else
+				f_valC = 0;
+			f_stat = f__stat ();
+
 			Console.Write (imem_icode);
 			Console.WriteLine (imem_ifun);
-
+			Console.Write (' ');
+			Console.Write (f_valC);
+			F_predPC = f__predPC ();
 			return;
+		}
+		public void FetchClock() {
+		
 		}
 	}
 

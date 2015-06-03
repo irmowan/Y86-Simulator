@@ -77,6 +77,10 @@ namespace PipeLine
 			d_rvalB = ReadRegister (d_srcB);
 			d_valA = d__valA ();
 			d_valB = d__valB ();
+			d_icode = D_icode;
+			d_ifun = D_ifun;
+			d_stat = D_stat;
+			d_valC = D_valC;
 			return;
 		}
 		public void DecodeClock() {

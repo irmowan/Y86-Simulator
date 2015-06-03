@@ -64,7 +64,7 @@ namespace PipeLine
 
 		public int GetValC(int addr) {
 			int ans = 0;				
-			// Converse these 4 byte to get the correct number or address.
+			// Converse these 4 bytes to get the correct number or address.
 			ans = InsMemory [addr + 3];
 			ans = (ans << 8) + InsMemory [addr + 2];
 			ans = (ans << 8) + InsMemory [addr + 1];
@@ -96,10 +96,11 @@ namespace PipeLine
 			else
 				f_valC = 0;
 			f_stat = f__stat ();
+			f_predPC = f__predPC ();
 			return;
 		}
 		public void FetchClock() {
-			F_predPC = f__predPC ();
+			F_predPC = f_predPC;
 			return;
 		}
 	}

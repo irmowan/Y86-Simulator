@@ -9,40 +9,48 @@ using System.Collections;
 namespace PipeLine
 {
 	class Program{
-		protected static int INOP = 0;
-		protected static int IHALT = 1;
-		protected static int IRRMOVL = 2;
-		protected static int IIRMOVL = 3;
-		protected static int IRMMOVL = 4;
-		protected static int IMRMOVL = 5;
-		protected static int IOPL = 6;
-		protected static int IJXX = 7;
-		protected static int ICALL = 8;
-		protected static int IRET = 9;
-		protected static int IPUSHL = 10;
-		protected static int IPOPL = 11;
-		protected static int FNONE = 0;
-		protected static int REAX = 0;
-		protected static int RECX = 1;
-		protected static int REDX = 2;
-		protected static int REBX = 3;
-		protected static int RESP = 4;
-		protected static int REBP = 5;
-		protected static int RESI = 6;
-		protected static int REDI = 7;
-		protected static int RNONE = 8;
-
-		protected static int ALUADD = 0;
-		protected static int ALUSUB = 1;
-		protected static int ALUAND = 2;
-		protected static int ALUXOR = 3;
-
-		protected static int SAOK = 1;
-		protected static int SADR = 2;
-		protected static int SINS = 3;
-		protected static int SHLT = 4;
-		protected static int SBUB = 5;
-
+		protected const int INOP = 0;
+		protected const int IHALT = 1;
+		protected const int IRRMOVL = 2;
+		protected const int IIRMOVL = 3;
+		protected const int IRMMOVL = 4;
+		protected const int IMRMOVL = 5;
+		protected const int IOPL = 6;
+		protected const int IJXX = 7;
+		protected const int ICALL = 8;
+		protected const int IRET = 9;
+		protected const int IPUSHL = 10;
+		protected const int IPOPL = 11;
+		protected const int FNONE = 0;
+		protected const int RESP = 4;
+		protected const int RNONE = 8;
+		// Jump Code
+		protected const int IJMP = 0;
+		protected const int IJLE = 1;
+		protected const int IJL = 2;
+		protected const int IJE = 3;
+		protected const int IJNE = 4;
+		protected const int IJGE = 5;
+		protected const int IJG = 6;
+		// ALU Code
+		protected const int ALUADD = 0;
+		protected const int ALUSUB = 1;
+		protected const int ALUAND = 2;
+		protected const int ALUXOR = 3;
+		// Cmov Code
+		protected const int CRR = 0;
+		protected const int CLE = 1;
+		protected const int CL = 2;
+		protected const int CE = 3;
+		protected const int CNE = 4;
+		protected const int CGE = 5;
+		protected const int CG = 6;
+		// Stat Code
+		protected const int SAOK = 1;
+		protected const int SADR = 2;
+		protected const int SINS = 3;
+		protected const int SHLT = 4;
+		protected const int SBUB = 5;
 		// All the Pipeline Registers.
 		protected static int F_predPC;
 		protected static int D_stat, D_icode, D_ifun, D_rA, D_rB, D_valC, D_valP;
@@ -58,22 +66,27 @@ namespace PipeLine
 		protected static bool e_Cnd;
 		protected static bool dmem_error;
 		protected static int m_valM, m_stat;
+		protected static int w_valE, w_valM, w_dstE, w_dstM;
 
-		protected static int ZF, SF, OF;
+		protected static int STAT;
+		protected static bool ZF, SF, OF;
 
-		protected static int f_pc, f_rA, f_rB, f_stat;
+		protected static int f_pc, f_rA, f_rB, f_stat, f_predPC;
 		protected static bool f_need_valC, f_need_regids;
 		protected static int d_dstE, d_dstM, d_valA, d_valB;
+		protected static int d_stat, d_icode, d_ifun, d_valC;
 		protected static int e_aluA, e_aluB, e_alufun, e_valA;
+		protected static int e_stat, e_icode, e_dstM;
 		protected static bool e_set_cc;
-		
+		protected static int m_addr;
+		protected static bool m_read, m_write;
 		public static int[] InsMemory = new int[10000];
 		public static byte[] Memory = new byte[67108864];
 		public static int[] Register = new int[8];
 		public static int InsLength;
+		public const int MemLength = 67108864;
 
 		public void Constant() {
-			
 			D_stat = E_stat = M_stat = W_stat = SAOK;
 			D_rA = D_rB = E_srcA = E_srcB = E_dstE = E_dstM = M_dstE = M_dstM = RNONE;
 			F_predPC = 0;
@@ -92,7 +105,7 @@ namespace PipeLine
 
 			e_Cnd = false;
 			m_valM = m_stat = 0;
-			ZF = SF = OF = 0;
+			ZF = SF = OF = false;
 			InsLength = 0;
 			return;
 		}
@@ -177,6 +190,12 @@ namespace PipeLine
 			E.ExecuteMain ();
 			M.MemoryMain ();
 			W.WriteMain ();
+
+			W.WriteClock ();
+			M.MemoryClock ();
+			E.ExecuteClock ();
+			D.DecodeClock ();
+			F.FetchClock ();
 		}
 		public static void Main (string[] args) {
 			StreamReader File = LoadFile ();

@@ -15,7 +15,7 @@ namespace PipeLine
 				return true;
 			return false;
 		}
-		private bool mem_write() {
+		private bool mem__write() {
 			if (M_icode == IRMMOVL || M_icode == IPUSHL || M_icode == ICALL)
 				return true;
 			return false;
@@ -25,10 +25,52 @@ namespace PipeLine
 				return SADR;
 			return M_stat;
 		}
-		public void MemoryMain() {
+		private int ReadMemory(int addr) {
+			int ans = 0;
+			dmem_error = false;
+			if (addr > MemLength) {
+				dmem_error = true;
+				return 0;
+			}
+			ans = Memory [addr + 3];
+			ans = (ans << 8) + Memory [addr + 2];
+			ans = (ans << 8) + Memory [addr + 1];
+			ans = (ans << 8) + Memory [addr];
+			return ans;
+		}
+		private void WriteMemory(int addr, int val) {
+			dmem_error = false;
+			if (addr > MemLength)
+				dmem_error = true;
+			Memory [addr] = (byte)(val & 0xff);
+			val = val >> 8;
+			Memory [addr + 1] = (byte)(val & 0xff);
+			val = val >> 8;
+			Memory [addr + 2] = (byte)(val & 0xff);
+			val = val >> 8;
+			Memory [addr + 3] = (byte)(val & 0xff);
 			return;
 		}
+		public void MemoryMain() {
+			m_addr = mem__addr ();
+			m_read = mem__read ();
+			m_write = mem__write ();
 
+			if (m_read) m_valM = ReadMemory (m_addr);
+			if (m_write) WriteMemory (m_addr, M_valA);
+			m_stat = m__stat ();
+			return;
+		}
+		public void MemoryClock() {
+			M_stat = e_stat;
+			M_icode = e_icode;
+			M_Cnd = e_Cnd;
+			M_valE = e_valE;
+			M_valA = e_valA;
+			M_dstE = e_dstE;
+			M_dstM = e_dstM;
+			return;
+		}
 	}	
 }
 

@@ -16,12 +16,33 @@ namespace PipeLine
 		private int w__valM() {
 			return W_valM;
 		}
+		private void WriteRegister(int RegisterID, int val) {
+			if (RegisterID != RNONE & M_Cnd)
+				Register [RegisterID] = val;
+			return;
+		}
 		private int Stat() {
 			if (W_stat == SBUB)
 				return SAOK;
 			return W_stat;
 		}
 		public void WriteMain() {
+			w_dstE = w__dstE ();
+			w_dstM = w__dstM ();
+			w_valE = w__valE ();
+			w_valM = w__valM ();
+			WriteRegister (w_dstM, w_valM);
+			WriteRegister (w_dstE, w_valE);
+			STAT = Stat ();
+			return;
+		}
+		public void WriteClock() {
+			W_stat = m_stat;
+			W_icode = M_icode;
+			W_valE = M_valE;
+			W_valM = m_valM;
+			W_dstE = M_dstE;
+			W_dstM = M_dstM;
 			return;
 		}
 	}

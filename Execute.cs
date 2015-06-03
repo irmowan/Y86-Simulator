@@ -67,13 +67,13 @@ namespace PipeLine
 				break;
 			}
 			if (e_set_cc) {
-				ZF = SF = OF = 0;
+				ZF = SF = OF = false;
 				if (ans == 0)
-					ZF = 1;
+					ZF = true;
 				if (ans < 0)
-					SF = 1;
+					SF = true;
 				if ((valA < 0 == valB < 0) && (ans < 0 != valA < 0))
-					OF = 1;
+					OF = true;
 			}
 			return ans;
 		}
@@ -89,11 +89,11 @@ namespace PipeLine
 				case IJE:
 					return ZF;
 				case IJNE:
-					return ~ZF;
+					return !ZF;
 				case IJGE:
-					return ~(SF ^ OF);
+					return !(SF ^ OF);
 				case IJG:
-					return ~(SF ^ OF) & ~ZF;
+					return !(SF ^ OF) & !ZF;
 				}
 			}
 			if (E_icode == IRRMOVL) {
@@ -107,11 +107,11 @@ namespace PipeLine
 				case CE:
 					return ZF;
 				case CNE:
-					return ~ZF;
+					return !ZF;
 				case CGE:
-					return ~(SF ^ OF);
+					return !(SF ^ OF);
 				case CG:
-					return ~(SF ^ OF) & ~ZF;
+					return !(SF ^ OF) & !ZF;
 				}
 			}
 			return true;
@@ -125,13 +125,16 @@ namespace PipeLine
 			e_valE = ALU (e_aluA, e_aluB, e_alufun);
 			e_Cnd = Cond (E_ifun);
 			e_dstE = e__dstE ();
+			e_stat = E_stat;
+			e_icode = E_icode;
+			e_dstM = E_dstM;
 			return;
 		}
 		public void ExecuteClock() {
-			E_stat = D_stat;
-			E_icode = D_icode;
-			E_ifun = D_ifun;
-			E_valC = D_valC;
+			E_stat = d_stat;
+			E_icode = d_icode;
+			E_ifun = d_ifun;
+			E_valC = d_valC;
 			E_valA = d_valA;
 			E_valB = d_valB;
 			E_dstE = d_dstE;

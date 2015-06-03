@@ -61,8 +61,17 @@ namespace PipeLine
 				ans = ans + 4;
 			return ans;
 		}
-		public void FetchMain() {
 
+		public int GetValC(int addr) {
+			int ans = 0;				
+			// Converse these 4 byte to get the correct number or address.
+			ans = InsMemory [addr + 3];
+			ans = (ans << 8) + InsMemory [addr + 2];
+			ans = (ans << 8) + InsMemory [addr + 1];
+			ans = (ans << 8) + InsMemory [addr];
+			return ans;
+		}
+		public void FetchMain() {
 			f_pc = f__pc ();
 			imem_icode = InsMemory[f_pc]  >> 4;
 			imem_ifun = InsMemory[f_pc] & 0x0f;
@@ -87,16 +96,11 @@ namespace PipeLine
 			else
 				f_valC = 0;
 			f_stat = f__stat ();
-
-			Console.Write (imem_icode);
-			Console.WriteLine (imem_ifun);
-			Console.Write (' ');
-			Console.Write (f_valC);
-			F_predPC = f__predPC ();
 			return;
 		}
 		public void FetchClock() {
-		
+			F_predPC = f__predPC ();
+			return;
 		}
 	}
 

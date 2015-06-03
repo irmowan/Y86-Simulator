@@ -57,7 +57,36 @@ namespace PipeLine
 				return W_valE;
 			return d_rvalB;
 		}
+
+		private int ReadRegister(int RegisterID) {
+			if (RegisterID != RNONE) 
+				return Register[RegisterID];
+			return 0;
+		}
+		private void WriteRegister(int RegisterID, int val) {
+			if (RegisterID != RNONE)
+				Register [RegisterID] = val;
+			return;
+		}
 		public void DecodeMain() {
+			d_srcA = d__srcA ();
+			d_srcB = d__srcB ();
+			d_dstE = d__dstE ();
+			d_dstM = d__dstM ();
+			d_rvalA = ReadRegister (d_srcA);
+			d_rvalB = ReadRegister (d_srcB);
+			d_valA = d__valA ();
+			d_valB = d__valB ();
+			return;
+		}
+		public void DecodeClock() {
+			D_stat = f_stat;
+			D_icode = f_icode;
+			D_ifun = f_ifun;
+			D_rA = f_rA;
+			D_rB = f_rB;
+			D_valC = f_valC;
+			D_valP = f_valP;
 			return;
 		}
 	}

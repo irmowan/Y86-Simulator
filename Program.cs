@@ -40,7 +40,7 @@ namespace PipeLine
 
 		// All the Pipeline Registers.
 		protected static int F_predPC;
-		protected static int D_stat, D_icode, D_ifun, D_rA, D_rB, D_valP;
+		protected static int D_stat, D_icode, D_ifun, D_rA, D_rB, D_valC, D_valP;
 		protected static int E_stat, E_icode, E_ifun, E_valC, E_valA, E_valB, E_dstE, E_dstM, E_srcA,E_srcB;
 		protected static int M_stat, M_icode, M_ifun, M_valE, M_valA, M_dstE, M_dstM;
 		protected static int W_stat, W_icode, W_valE, W_valM, W_dstE, W_dstM;
@@ -58,10 +58,11 @@ namespace PipeLine
 
 		protected int f_pc, f_rA, f_rB, f_stat;
 		protected bool f_need_valC, f_need_regids;
+		protected int d_dstE, d_dstM;
 
 		public static int[] InsMemory = new int[10000];
 		public static byte[] Memory = new byte[67108864];
-		public static int[] register = new int[8];
+		public static int[] Register = new int[8];
 		public static int InsLength;
 
 		public void Constant() {
@@ -69,7 +70,7 @@ namespace PipeLine
 			D_stat = E_stat = M_stat = W_stat = SAOK;
 			D_rA = D_rB = E_srcA = E_srcB = E_dstE = E_dstM = M_dstE = M_dstM = RNONE;
 			F_predPC = 0;
-			D_icode = D_ifun = D_valP = 0;
+			D_icode = D_ifun = D_valC = D_valP = 0;
 			E_icode = E_ifun = E_valC = E_valA = E_valB = 0;
 			M_icode = M_ifun = M_valA = M_valE = 0;
 			M_Cnd = dmem_error = false;
@@ -89,15 +90,6 @@ namespace PipeLine
 			return;
 		}
 
-		public int GetValC(int addr) {
-			int ans = 0;				
-			// Converse these 4 byte to get the correct number or address.
-			ans = InsMemory [addr + 3];
-			ans = (ans << 8) + InsMemory [addr + 2];
-			ans = (ans << 8) + InsMemory [addr + 1];
-			ans = (ans << 8) + InsMemory [addr];
-			return ans;
-		}
 		private bool TestHex(char x) {
 			if (x >= '0' & x <= '9' | x >= 'a' & x <= 'f')
 				return true;

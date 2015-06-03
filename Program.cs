@@ -31,7 +31,12 @@ namespace PipeLine
 		protected static int RESI = 6;
 		protected static int REDI = 7;
 		protected static int RNONE = 8;
+
 		protected static int ALUADD = 0;
+		protected static int ALUSUB = 1;
+		protected static int ALUAND = 2;
+		protected static int ALUXOR = 3;
+
 		protected static int SAOK = 1;
 		protected static int SADR = 2;
 		protected static int SINS = 3;
@@ -56,10 +61,12 @@ namespace PipeLine
 
 		protected static int ZF, SF, OF;
 
-		protected int f_pc, f_rA, f_rB, f_stat;
-		protected bool f_need_valC, f_need_regids;
-		protected int d_dstE, d_dstM;
-
+		protected static int f_pc, f_rA, f_rB, f_stat;
+		protected static bool f_need_valC, f_need_regids;
+		protected static int d_dstE, d_dstM, d_valA, d_valB;
+		protected static int e_aluA, e_aluB, e_alufun, e_valA;
+		protected static bool e_set_cc;
+		
 		public static int[] InsMemory = new int[10000];
 		public static byte[] Memory = new byte[67108864];
 		public static int[] Register = new int[8];

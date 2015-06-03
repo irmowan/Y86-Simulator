@@ -49,7 +49,95 @@ namespace PipeLine
 				return RNONE;
 			return E_dstE;
 		}
+
+		private int ALU(int valA, int valB, int ifun) {
+			int ans = 0;
+			switch (ifun) {
+			case ALUADD:
+				ans = valB + valA;
+				break;
+			case ALUSUB:
+				ans = valB - valA;
+				break;
+			case ALUAND:
+				ans = valB & valA;
+				break;
+			case ALUXOR:
+				ans = valB ^ valA;
+				break;
+			}
+			if (e_set_cc) {
+				ZF = SF = OF = 0;
+				if (ans == 0)
+					ZF = 1;
+				if (ans < 0)
+					SF = 1;
+				if ((valA < 0 == valB < 0) && (ans < 0 != valA < 0))
+					OF = 1;
+			}
+			return ans;
+		}
+		private bool Cond(int ifun) {
+			if (E_icode == IJXX) {
+				switch (ifun) {
+				case IJMP:
+					return true;
+				case IJLE:
+					return (SF ^ OF) | ZF;
+				case IJL:
+					return SF ^ OF;
+				case IJE:
+					return ZF;
+				case IJNE:
+					return ~ZF;
+				case IJGE:
+					return ~(SF ^ OF);
+				case IJG:
+					return ~(SF ^ OF) & ~ZF;
+				}
+			}
+			if (E_icode == IRRMOVL) {
+				switch (ifun) {
+				case CRR:
+					return true;
+				case CLE:
+					return (SF ^ OF) | ZF;
+				case CL:
+					return SF ^ OF;
+				case CE:
+					return ZF;
+				case CNE:
+					return ~ZF;
+				case CGE:
+					return ~(SF ^ OF);
+				case CG:
+					return ~(SF ^ OF) & ~ZF;
+				}
+			}
+			return true;
+		}
 		public void ExecuteMain() {
+			e_aluA = aluA ();
+			e_aluB = aluB ();
+			e_alufun = alufun ();
+			e_valA = e__valA ();
+			e_set_cc = set__cc ();
+			e_valE = ALU (e_aluA, e_aluB, e_alufun);
+			e_Cnd = Cond (E_ifun);
+			e_dstE = e__dstE ();
+			return;
+		}
+		public void ExecuteClock() {
+			E_stat = D_stat;
+			E_icode = D_icode;
+			E_ifun = D_ifun;
+			E_valC = D_valC;
+			E_valA = d_valA;
+			E_valB = d_valB;
+			E_dstE = d_dstE;
+			E_dstM = d_dstM;
+			E_srcA = d_srcA;
+			E_srcB = d_srcB;
 			return;
 		}
 	}

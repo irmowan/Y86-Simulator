@@ -37,18 +37,21 @@ namespace PipeLine
 		protected static int SINS = 3;
 		protected static int SHLT = 4;
 		protected static int SBUB = 5;
+
+		// All the Pipeline Registers.
 		protected static int F_predPC;
-		protected static int D_icode, D_rA, D_rB, D_valP;
-		protected static int E_icode, E_ifun, E_valC, E_srcA, E_valA, E_srcB, E_valB, E_dstE, E_dstM;
-		protected static int M_stat, M_icode, M_ifun, M_valA, M_dstE, M_dstM, M_valE;
-		protected static int W_stat, W_icode, W_dstE, W_valE, W_dstM, W_valM;
+		protected static int D_stat, D_icode, D_ifun, D_rA, D_rB, D_valP;
+		protected static int E_stat, E_icode, E_ifun, E_valC, E_valA, E_valB, E_dstE, E_dstM, E_srcA,E_srcB;
+		protected static int M_stat, M_icode, M_ifun, M_valE, M_valA, M_dstE, M_dstM;
+		protected static int W_stat, W_icode, W_valE, W_valM, W_dstE, W_dstM;
+		protected static bool M_Cnd;
 
 		protected static int imem_icode, imem_ifun, f_icode, f_ifun, f_valC, f_valP;
 		protected static bool imem_error, instr_valid;
 		protected static int d_srcA, d_srcB, d_rvalA, d_rvalB;
 		protected static int e_valE, e_dstE;
 		protected static bool e_Cnd;
-		protected static bool M_Cnd, dmem_error;
+		protected static bool dmem_error;
 		protected static int m_valM, m_stat;
 
 		protected static int ZF, SF, OF;
@@ -62,19 +65,25 @@ namespace PipeLine
 		public static int InsLength;
 
 		public void Constant() {
-			F_predPC = imem_icode = imem_ifun = f_icode = f_ifun = f_valC = f_valP = 0;
+			
+			D_stat = E_stat = M_stat = W_stat = SAOK;
+			D_rA = D_rB = E_srcA = E_srcB = E_dstE = E_dstM = M_dstE = M_dstM = RNONE;
+			F_predPC = 0;
+			D_icode = D_ifun = D_valP = 0;
+			E_icode = E_ifun = E_valC = E_valA = E_valB = 0;
+			M_icode = M_ifun = M_valA = M_valE = 0;
+			M_Cnd = dmem_error = false;
+			W_icode = W_dstE = W_valE = W_dstM = W_valM = 0;
+
+			imem_icode = imem_ifun = f_icode = f_ifun = f_valC = f_valP = 0;
 			imem_error = false; 
 			instr_valid = true;
-			D_icode = D_valP = 0;
-			D_rA = D_rB = RNONE;
-			d_srcA = d_srcB = d_rvalA = d_rvalB = 0;
-			E_icode = E_ifun = E_valC = E_srcA = E_valA = E_srcB = E_valB = E_dstE = E_dstM = 0;
-			e_valE = e_dstE = 0;
+			d_srcA = d_srcB = e_dstE = RNONE;
+			d_rvalA = d_rvalB = 0;
+			e_valE = 0;
+
 			e_Cnd = false;
-			M_stat = M_icode = M_ifun = M_valA = M_dstE = M_dstM = M_valE = 0;
-			M_Cnd = dmem_error = false;
 			m_valM = m_stat = 0;
-			W_stat = W_icode = W_dstE = W_valE = W_dstM = W_valM = 0;
 			ZF = SF = OF = 0;
 			InsLength = 0;
 			return;

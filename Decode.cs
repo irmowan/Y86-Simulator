@@ -63,11 +63,7 @@ namespace PipeLine
 				return Register[RegisterID];
 			return 0;
 		}
-		private void WriteRegister(int RegisterID, int val) {
-			if (RegisterID != RNONE)
-				Register [RegisterID] = val;
-			return;
-		}
+
 		public void DecodeMain() {
 			d_srcA = d__srcA ();
 			d_srcB = d__srcB ();

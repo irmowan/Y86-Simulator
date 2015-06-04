@@ -38,9 +38,14 @@ namespace PipeLine
 		}
 		public void WriteClock() {
 			if (W_stall) {
-
+				// Nothing.
 			} else if (W_bubble) {
-
+				W_stat = SBUB;
+				W_icode = 0;
+				W_valE = 0;
+				W_valM = 0;
+				W_dstE = RNONE;
+				W_dstM = RNONE;
 			} else {
 				W_stat = m_stat;
 				W_icode = m_icode;
@@ -50,12 +55,11 @@ namespace PipeLine
 				W_dstM = m_dstM;
 			}
 			Console.WriteLine ("WRITE BACK:");
-			Console.WriteLine ("\tW_stat\t= {0}" ,W_stat);
-			Console.WriteLine ("\tW_icode\t= {0}" ,W_icode);
-			Console.WriteLine ("\tW_valE\t= {0}" ,W_valE);
-			Console.WriteLine ("\tW_valM\t= {0}" ,W_valM);
-			Console.WriteLine ("\tW_dstE\t= {0}" ,W_dstE);
-			Console.WriteLine ("\tW_dstM\t= {0}" ,W_dstM);
+			Console.WriteLine ("\tW_icode  \t= 0x{0}", W_icode.ToString ("x"));
+			Console.WriteLine ("\tW_valE   \t= 0x{0}", W_valE.ToString ("x8"));
+			Console.WriteLine ("\tW_valM   \t= 0x{0}", W_valM.ToString ("x8"));
+			Console.WriteLine ("\tW_dstE   \t= 0x{0}", W_dstE.ToString ("x"));
+			Console.WriteLine ("\tW_dstM   \t= 0x{0}", W_dstM.ToString ("x"));
 			Console.WriteLine ();
 			return;
 		}

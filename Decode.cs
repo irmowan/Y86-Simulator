@@ -81,9 +81,15 @@ namespace PipeLine
 		}
 		public void DecodeClock() {
 			if (D_stall) {
-			
+				// Nothing.
 			} else if (D_bubble) {
-			
+				D_stat = SBUB;
+				D_icode = 0;
+				D_ifun = 0;
+				D_rA = RNONE;
+				D_rB = RNONE;
+				D_valC = 0;
+				D_valP = 0;			
 			} else {
 				D_stat = f_stat;
 				D_icode = f_icode;
@@ -94,13 +100,12 @@ namespace PipeLine
 				D_valP = f_valP;
 			}
 			Console.WriteLine ("DECODE:");
-			Console.WriteLine ("\tD_stat\t= {0}", D_stat);
-			Console.WriteLine ("\tD_icode\t= {0}", D_icode);
-			Console.WriteLine ("\tD_ifun\t= {0}", D_ifun);
-			Console.WriteLine ("\tD_rA\t= {0}", D_rA);
-			Console.WriteLine ("\tD_rB\t= {0}", D_rB);
-			Console.WriteLine ("\tD_valC\t= {0}", D_valC);
-			Console.WriteLine ("\tD_valP\t= {0}", D_valP);
+			Console.WriteLine ("\tD_icode  \t= 0x{0}", D_icode.ToString ("x"));
+			Console.WriteLine ("\tD_ifun   \t= 0x{0}", D_ifun.ToString ("x"));
+			Console.WriteLine ("\tD_rA     \t= 0x{0}", D_rA.ToString ("x"));
+			Console.WriteLine ("\tD_rB     \t= 0x{0}", D_rB.ToString ("x"));
+			Console.WriteLine ("\tD_valC   \t= 0x{0}", D_valC.ToString ("x8"));
+			Console.WriteLine ("\tD_valP   \t= 0x{0}", D_valP.ToString ("x8"));
 			Console.WriteLine ();
 			return;
 		}

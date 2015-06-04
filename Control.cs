@@ -30,7 +30,7 @@ namespace PipeLine
 		private bool D__bubble() {
 			bool flag1, flag2, flag3, flag4;
 			flag1 = flag2 = flag3 = flag4 = false;
-			if (E_icode == IJXX || !e_Cnd)
+			if (E_icode == IJXX && !e_Cnd)
 				flag1 = true;
 			if (E_icode == IMRMOVL || E_icode == IPOPL)
 				flag2 = true;

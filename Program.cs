@@ -51,7 +51,6 @@ namespace PipeLine
 		protected const int SINS = 3;
 		protected const int SHLT = 4;
 		protected const int SBUB = 5;
-		protected const int SSTL = 6;
 		// All the Pipeline Registers.
 		protected static int F_predPC;
 		protected static int D_stat, D_icode, D_ifun, D_rA, D_rB, D_valC, D_valP;
@@ -103,14 +102,18 @@ namespace PipeLine
 			imem_icode = imem_ifun = f_icode = f_ifun = f_valC = f_valP = 0;
 			imem_error = false; 
 			instr_valid = true;
-			d_srcA = d_srcB = e_dstE = RNONE;
+			d_srcA = d_srcB = d_dstE = d_dstM = e_dstE = e_dstM = m_dstE = m_dstM = w_dstE = w_dstM = RNONE;
+			d_valA = d_valB = 0;
 			d_rvalA = d_rvalB = 0;
-			e_valE = 0;
-
+			e_valE = m_valE = w_valE = w_valM = 0;
+			dmem_error = false;
 			e_Cnd = false;
 			m_valM = m_stat = 0;
+
 			ZF = SF = OF = false;
 			InsLength = 0;
+			STAT = SAOK;
+			F_stall = F_bubble = D_stall = D_bubble = E_stall = E_bubble = M_stall = M_bubble = W_stall = W_bubble = false;
 			return;
 		}
 
@@ -166,9 +169,6 @@ namespace PipeLine
 			Console.WriteLine ();
 		}
 
-		public void print() {
-		}
-
 		public static StreamReader LoadFile() {
 			try{
 				StreamReader filename = new StreamReader("asum.yo", Encoding.Default);
@@ -183,9 +183,7 @@ namespace PipeLine
 		public void init() {
 			Constant ();
 		}
-		public void ClockUp() {
-		
-		}
+
 		public void GoByOneStep(int step) {
 			Fetch F = new Fetch();
 			Decode D = new Decode();
@@ -196,6 +194,7 @@ namespace PipeLine
 
 			Console.WriteLine ("Cycle_{0}", step);
 			Console.WriteLine("--------------------");
+
 			C.ControlMain ();
 			F.FetchClock ();
 			D.DecodeClock ();
@@ -221,7 +220,7 @@ namespace PipeLine
 				if (f_pc > InsLength)
 					break;
 			}
-			Console.WriteLine ("Completed!");
+
 		}
 	}
 }

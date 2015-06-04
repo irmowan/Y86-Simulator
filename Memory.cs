@@ -42,6 +42,7 @@ namespace PipeLine
 			dmem_error = false;
 			if (addr > MemLength)
 				dmem_error = true;
+
 			Memory [addr] = (byte)(val & 0xff);
 			val = val >> 8;
 			Memory [addr + 1] = (byte)(val & 0xff);
@@ -67,9 +68,15 @@ namespace PipeLine
 		}
 		public void MemoryClock() {
 			if (M_stall) {
-				
+				// Nothing.
 			} else if (M_bubble) {
-			
+				M_stat = SBUB;
+				M_icode = 0;
+				M_Cnd = false;
+				M_valE = 0;
+				M_valA = 0;
+				M_dstE = RNONE;
+				M_dstM = RNONE;			
 			} else {
 				M_stat = e_stat;
 				M_icode = e_icode;
@@ -80,13 +87,12 @@ namespace PipeLine
 				M_dstM = e_dstM;
 			}
 			Console.WriteLine ("MEMORY:");
-			Console.WriteLine ("\tM_stat\t= {0}", M_stat);
-			Console.WriteLine ("\tM_icode\t= {0}", M_icode);
-			Console.WriteLine ("\tM_Cnd\t= {0}", M_Cnd);
-			Console.WriteLine ("\tM_valE\t= {0}", M_valE);
-			Console.WriteLine ("\tM_valA\t= {0}", M_valA);
-			Console.WriteLine ("\tM_dstE\t= {0}", M_dstE);
-			Console.WriteLine ("\tM_dstM\t= {0}", M_dstM);
+			Console.WriteLine ("\tM_icode  \t= 0x{0}", M_icode.ToString ("x"));
+			Console.WriteLine ("\tM_Bch    \t= {0}", M_Cnd);
+			Console.WriteLine ("\tM_valE   \t= 0x{0}", M_valE.ToString ("x8"));
+			Console.WriteLine ("\tM_valA   \t= 0x{0}", M_valA.ToString ("x8"));
+			Console.WriteLine ("\tM_dstE   \t= 0x{0}", M_dstE.ToString ("x"));
+			Console.WriteLine ("\tM_dstM   \t= 0x{0}", M_dstM.ToString ("x"));
 			Console.WriteLine ();
 			return;
 		}

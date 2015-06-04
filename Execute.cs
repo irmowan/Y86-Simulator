@@ -4,7 +4,7 @@ namespace PipeLine
 {
 	class Execute:Program {
 		private int aluA() {
-			if (E_icode == IRMMOVL || E_icode == IOPL)
+			if (E_icode == IRRMOVL || E_icode == IOPL)
 				return E_valA;
 			if (E_icode == IIRMOVL || E_icode == IRMMOVL || E_icode == IMRMOVL)
 				return E_valC;
@@ -29,6 +29,8 @@ namespace PipeLine
 		}
 		private bool set__cc() {
 			bool flag1, flag2;
+			flag1 = false;
+			flag2 = false;
 			if (m_stat == SADR || m_stat == SINS || m_stat == SHLT)
 				flag1 = true;
 			else
@@ -114,7 +116,7 @@ namespace PipeLine
 					return !(SF ^ OF) & !ZF;
 				}
 			}
-			return true;
+			return false;
 		}
 		public void ExecuteMain() {
 			e_aluA = aluA ();
@@ -132,9 +134,18 @@ namespace PipeLine
 		}
 		public void ExecuteClock() {
 			if (E_stall) {
-
+				// Nothing.
 			} else if (E_bubble) {
-				
+				E_stat = SBUB;
+				E_icode = 0;
+				E_ifun = 0;
+				E_valC = 0;
+				E_valA = 0;
+				E_valB = 0;
+				E_dstE = RNONE;
+				E_dstM = RNONE;
+				E_srcA = RNONE;
+				E_srcB = RNONE;				
 			} else {
 				E_stat = d_stat;
 				E_icode = d_icode;
@@ -148,16 +159,15 @@ namespace PipeLine
 				E_srcB = d_srcB;
 			}
 			Console.WriteLine ("EXECUTE:");
-			Console.WriteLine ("\tE_stat\t= {0}", E_stat);
-			Console.WriteLine ("\tE_icode\t= {0}", E_icode);
-			Console.WriteLine ("\tE_ifun\t= {0}", E_ifun);
-			Console.WriteLine ("\tE_valC\t= {0}", E_valC);
-			Console.WriteLine ("\tE_valA\t= {0}", E_valA);
-			Console.WriteLine ("\tE_valB\t= {0}", E_valB);
-			Console.WriteLine ("\tE_dstE\t= {0}", E_dstE);
-			Console.WriteLine ("\tE_dstM\t= {0}", E_dstM);
-			Console.WriteLine ("\tE_srcA\t= {0}", E_srcA);
-			Console.WriteLine ("\tE_srcB\t= {0}", E_srcB);
+			Console.WriteLine ("\tE_icode  \t= 0x{0}", E_icode.ToString ("x"));
+			Console.WriteLine ("\tE_ifun   \t= 0x{0}", E_ifun.ToString ("x"));
+			Console.WriteLine ("\tE_valC   \t= 0x{0}", E_valC.ToString ("x8"));
+			Console.WriteLine ("\tE_valA   \t= 0x{0}", E_valA.ToString ("x8"));
+			Console.WriteLine ("\tE_valB   \t= 0x{0}", E_valB.ToString ("x8"));
+			Console.WriteLine ("\tE_dstE   \t= 0x{0}", E_dstE.ToString ("x"));
+			Console.WriteLine ("\tE_dstM   \t= 0x{0}", E_dstM.ToString ("x"));
+			Console.WriteLine ("\tE_srcA   \t= 0x{0}", E_srcA.ToString ("x"));
+			Console.WriteLine ("\tE_srcB   \t= 0x{0}", E_srcB.ToString ("x"));
 			Console.WriteLine ();
 			return;
 		}

@@ -141,6 +141,16 @@ namespace PipeLine
 			E_dstM = d_dstM;
 			E_srcA = d_srcA;
 			E_srcB = d_srcB;
+			Console.WriteLine("E_stat:{0}", E_stat);
+			Console.WriteLine("E_icode:{0}", E_icode);
+			Console.WriteLine("E_ifun:{0}", E_ifun);
+			Console.WriteLine("E_valC:{0}", E_valC);
+			Console.WriteLine("E_valA:{0}", E_valA);
+			Console.WriteLine("E_valB:{0}", E_valB);
+			Console.WriteLine("E_dstE:{0}", E_dstE);
+			Console.WriteLine("E_dstM:{0}", E_dstM);
+			Console.WriteLine("E_srcA:{0}", E_srcA);
+			Console.WriteLine("E_srcB:{0}", E_srcB);
 			return;
 		}
 	}

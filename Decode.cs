@@ -87,6 +87,13 @@ namespace PipeLine
 			D_rB = f_rB;
 			D_valC = f_valC;
 			D_valP = f_valP;
+			Console.WriteLine ("D_stat:{0}", D_stat);
+			Console.WriteLine ("D_icode:{0}", D_icode);
+			Console.WriteLine ("D_ifun:{0}", D_ifun);
+			Console.WriteLine ("D_rA:{0}", D_rA);
+			Console.WriteLine ("D_rB:{0}", D_rB);
+			Console.WriteLine ("D_valC:{0}", D_valC);
+			Console.WriteLine ("D_valP:{0}", D_valP);
 			return;
 		}
 	}

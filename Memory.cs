@@ -59,6 +59,10 @@ namespace PipeLine
 			if (m_read) m_valM = ReadMemory (m_addr);
 			if (m_write) WriteMemory (m_addr, M_valA);
 			m_stat = m__stat ();
+			m_valE = M_valE;
+			m_dstE = M_dstE;
+			m_icode = M_icode;
+			m_dstM = M_dstM;
 			return;
 		}
 		public void MemoryClock() {
@@ -69,6 +73,13 @@ namespace PipeLine
 			M_valA = e_valA;
 			M_dstE = e_dstE;
 			M_dstM = e_dstM;
+			Console.WriteLine ("M_stat:{0}", M_stat);
+			Console.WriteLine ("M_icode:{0}", M_icode);
+			Console.WriteLine ("M_Cnd:{0}", M_Cnd);
+			Console.WriteLine ("M_valE:{0}", M_valE);
+			Console.WriteLine ("M_valA:{0}", M_valA);
+			Console.WriteLine ("M_dstE:{0}", M_dstE);
+			Console.WriteLine ("M_dstM:{0}", M_dstM);
 			return;
 		}
 	}	

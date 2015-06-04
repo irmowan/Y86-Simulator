@@ -101,6 +101,7 @@ namespace PipeLine
 		}
 		public void FetchClock() {
 			F_predPC = f_predPC;
+			Console.Write ("F_predPC{0}", F_predPC);
 			return;
 		}
 	}

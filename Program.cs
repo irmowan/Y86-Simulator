@@ -65,7 +65,7 @@ namespace PipeLine
 		protected static int e_valE, e_dstE;
 		protected static bool e_Cnd;
 		protected static bool dmem_error;
-		protected static int m_valM, m_stat;
+		protected static int m_valM, m_stat, m_icode, m_valE, m_dstE, m_dstM;
 		protected static int w_valE, w_valM, w_dstE, w_dstM;
 
 		protected static int STAT;
@@ -202,6 +202,8 @@ namespace PipeLine
 			Program pipeline = new Program();
 			pipeline.load (File);
 			pipeline.init ();
+			pipeline.GoByOneStep ();
+			pipeline.GoByOneStep ();		
 			pipeline.GoByOneStep ();
 			Console.WriteLine ("Completed!");
 		}

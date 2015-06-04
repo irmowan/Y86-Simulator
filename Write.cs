@@ -38,11 +38,17 @@ namespace PipeLine
 		}
 		public void WriteClock() {
 			W_stat = m_stat;
-			W_icode = M_icode;
-			W_valE = M_valE;
+			W_icode = m_icode;
+			W_valE = m_valE;
 			W_valM = m_valM;
-			W_dstE = M_dstE;
-			W_dstM = M_dstM;
+			W_dstE = m_dstE;
+			W_dstM = m_dstM;
+			Console.WriteLine ("W_stat:{0}" ,W_stat);
+			Console.WriteLine ("W_icode:{0}" ,W_icode);
+			Console.WriteLine ("W_valE:{0}" ,W_valE);
+			Console.WriteLine ("W_valM:{0}" ,W_valM);
+			Console.WriteLine ("W_dstE:{0}" ,W_dstE);
+			Console.WriteLine ("W_dstM:{0}" ,W_dstM);
 			return;
 		}
 	}

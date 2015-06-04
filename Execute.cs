@@ -131,26 +131,34 @@ namespace PipeLine
 			return;
 		}
 		public void ExecuteClock() {
-			E_stat = d_stat;
-			E_icode = d_icode;
-			E_ifun = d_ifun;
-			E_valC = d_valC;
-			E_valA = d_valA;
-			E_valB = d_valB;
-			E_dstE = d_dstE;
-			E_dstM = d_dstM;
-			E_srcA = d_srcA;
-			E_srcB = d_srcB;
-			Console.WriteLine("E_stat:{0}", E_stat);
-			Console.WriteLine("E_icode:{0}", E_icode);
-			Console.WriteLine("E_ifun:{0}", E_ifun);
-			Console.WriteLine("E_valC:{0}", E_valC);
-			Console.WriteLine("E_valA:{0}", E_valA);
-			Console.WriteLine("E_valB:{0}", E_valB);
-			Console.WriteLine("E_dstE:{0}", E_dstE);
-			Console.WriteLine("E_dstM:{0}", E_dstM);
-			Console.WriteLine("E_srcA:{0}", E_srcA);
-			Console.WriteLine("E_srcB:{0}", E_srcB);
+			if (E_stall) {
+
+			} else if (E_bubble) {
+				
+			} else {
+				E_stat = d_stat;
+				E_icode = d_icode;
+				E_ifun = d_ifun;
+				E_valC = d_valC;
+				E_valA = d_valA;
+				E_valB = d_valB;
+				E_dstE = d_dstE;
+				E_dstM = d_dstM;
+				E_srcA = d_srcA;
+				E_srcB = d_srcB;
+			}
+			Console.WriteLine ("EXECUTE:");
+			Console.WriteLine ("\tE_stat\t= {0}", E_stat);
+			Console.WriteLine ("\tE_icode\t= {0}", E_icode);
+			Console.WriteLine ("\tE_ifun\t= {0}", E_ifun);
+			Console.WriteLine ("\tE_valC\t= {0}", E_valC);
+			Console.WriteLine ("\tE_valA\t= {0}", E_valA);
+			Console.WriteLine ("\tE_valB\t= {0}", E_valB);
+			Console.WriteLine ("\tE_dstE\t= {0}", E_dstE);
+			Console.WriteLine ("\tE_dstM\t= {0}", E_dstM);
+			Console.WriteLine ("\tE_srcA\t= {0}", E_srcA);
+			Console.WriteLine ("\tE_srcB\t= {0}", E_srcB);
+			Console.WriteLine ();
 			return;
 		}
 	}

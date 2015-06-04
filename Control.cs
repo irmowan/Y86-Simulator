@@ -73,8 +73,18 @@ namespace PipeLine
 		private bool W__bubble() {
 			return false;
 		}
-		public Control ()
+		public void ControlMain ()
 		{
+			F_stall = F__stall ();
+			F_bubble = F__bubble ();
+			D_stall = D__stall ();
+			D_bubble = D__bubble ();
+			E_stall = E__stall ();
+			E_bubble = E__bubble ();
+			M_stall = M__stall ();
+			M_bubble = M__bubble ();
+			W_stall = W__stall ();
+			W_bubble = W__bubble ();
 			return;
 		}
 	}

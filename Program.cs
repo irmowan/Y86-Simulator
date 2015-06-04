@@ -51,6 +51,7 @@ namespace PipeLine
 		protected const int SINS = 3;
 		protected const int SHLT = 4;
 		protected const int SBUB = 5;
+		protected const int SSTL = 6;
 		// All the Pipeline Registers.
 		protected static int F_predPC;
 		protected static int D_stat, D_icode, D_ifun, D_rA, D_rB, D_valC, D_valP;
@@ -80,6 +81,9 @@ namespace PipeLine
 		protected static bool e_set_cc;
 		protected static int m_addr;
 		protected static bool m_read, m_write;
+		// Control Variables
+		protected static bool F_stall, F_bubble, D_stall, D_bubble, E_stall, E_bubble, M_stall, M_bubble, W_stall, W_bubble;
+		// Hardware
 		public static int[] InsMemory = new int[10000];
 		public static byte[] Memory = new byte[67108864];
 		public static int[] Register = new int[8];
@@ -179,32 +183,44 @@ namespace PipeLine
 		public void init() {
 			Constant ();
 		}
-		public void GoByOneStep() {
+		public void ClockUp() {
+		
+		}
+		public void GoByOneStep(int step) {
 			Fetch F = new Fetch();
 			Decode D = new Decode();
 			Execute E = new Execute();
 			Memory M = new Memory();
 			Write W = new Write();
+			Control C = new Control ();
+
+			Console.WriteLine ("Cycle_{0}", step);
+			Console.WriteLine("--------------------");
+			C.ControlMain ();
+			F.FetchClock ();
+			D.DecodeClock ();
+			E.ExecuteClock ();
+			M.MemoryClock ();
+			W.WriteClock ();
+
 			F.FetchMain ();
 			D.DecodeMain ();
 			E.ExecuteMain ();
 			M.MemoryMain ();
 			W.WriteMain ();
-
-			W.WriteClock ();
-			M.MemoryClock ();
-			E.ExecuteClock ();
-			D.DecodeClock ();
-			F.FetchClock ();
 		}
+
 		public static void Main (string[] args) {
 			StreamReader File = LoadFile ();
 			Program pipeline = new Program();
-			pipeline.load (File);
 			pipeline.init ();
-			pipeline.GoByOneStep ();
-			pipeline.GoByOneStep ();		
-			pipeline.GoByOneStep ();
+			pipeline.load (File);
+			Console.WriteLine ("InsLength{0}",InsLength);
+			for (int i = 0; i < InsLength; ++i) {
+				pipeline.GoByOneStep (i);
+				if (f_pc > InsLength)
+					break;
+			}
 			Console.WriteLine ("Completed!");
 		}
 	}

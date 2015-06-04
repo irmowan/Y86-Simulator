@@ -66,20 +66,28 @@ namespace PipeLine
 			return;
 		}
 		public void MemoryClock() {
-			M_stat = e_stat;
-			M_icode = e_icode;
-			M_Cnd = e_Cnd;
-			M_valE = e_valE;
-			M_valA = e_valA;
-			M_dstE = e_dstE;
-			M_dstM = e_dstM;
-			Console.WriteLine ("M_stat:{0}", M_stat);
-			Console.WriteLine ("M_icode:{0}", M_icode);
-			Console.WriteLine ("M_Cnd:{0}", M_Cnd);
-			Console.WriteLine ("M_valE:{0}", M_valE);
-			Console.WriteLine ("M_valA:{0}", M_valA);
-			Console.WriteLine ("M_dstE:{0}", M_dstE);
-			Console.WriteLine ("M_dstM:{0}", M_dstM);
+			if (M_stall) {
+				
+			} else if (M_bubble) {
+			
+			} else {
+				M_stat = e_stat;
+				M_icode = e_icode;
+				M_Cnd = e_Cnd;
+				M_valE = e_valE;
+				M_valA = e_valA;
+				M_dstE = e_dstE;
+				M_dstM = e_dstM;
+			}
+			Console.WriteLine ("MEMORY:");
+			Console.WriteLine ("\tM_stat\t= {0}", M_stat);
+			Console.WriteLine ("\tM_icode\t= {0}", M_icode);
+			Console.WriteLine ("\tM_Cnd\t= {0}", M_Cnd);
+			Console.WriteLine ("\tM_valE\t= {0}", M_valE);
+			Console.WriteLine ("\tM_valA\t= {0}", M_valA);
+			Console.WriteLine ("\tM_dstE\t= {0}", M_dstE);
+			Console.WriteLine ("\tM_dstM\t= {0}", M_dstM);
+			Console.WriteLine ();
 			return;
 		}
 	}	

@@ -100,8 +100,16 @@ namespace PipeLine
 			return;
 		}
 		public void FetchClock() {
-			F_predPC = f_predPC;
-			Console.Write ("F_predPC{0}", F_predPC);
+			if (F_stall) {
+				
+			} else if (F_bubble) {
+				
+			} else {
+				F_predPC = f_predPC;
+			}
+			Console.WriteLine ("FETCH:");
+			Console.WriteLine ("\tF_predPC\t= {0}", F_predPC);
+			Console.WriteLine ();
 			return;
 		}
 	}

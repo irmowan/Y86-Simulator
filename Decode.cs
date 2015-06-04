@@ -80,20 +80,28 @@ namespace PipeLine
 			return;
 		}
 		public void DecodeClock() {
-			D_stat = f_stat;
-			D_icode = f_icode;
-			D_ifun = f_ifun;
-			D_rA = f_rA;
-			D_rB = f_rB;
-			D_valC = f_valC;
-			D_valP = f_valP;
-			Console.WriteLine ("D_stat:{0}", D_stat);
-			Console.WriteLine ("D_icode:{0}", D_icode);
-			Console.WriteLine ("D_ifun:{0}", D_ifun);
-			Console.WriteLine ("D_rA:{0}", D_rA);
-			Console.WriteLine ("D_rB:{0}", D_rB);
-			Console.WriteLine ("D_valC:{0}", D_valC);
-			Console.WriteLine ("D_valP:{0}", D_valP);
+			if (D_stall) {
+			
+			} else if (D_bubble) {
+			
+			} else {
+				D_stat = f_stat;
+				D_icode = f_icode;
+				D_ifun = f_ifun;
+				D_rA = f_rA;
+				D_rB = f_rB;
+				D_valC = f_valC;
+				D_valP = f_valP;
+			}
+			Console.WriteLine ("DECODE:");
+			Console.WriteLine ("\tD_stat\t= {0}", D_stat);
+			Console.WriteLine ("\tD_icode\t= {0}", D_icode);
+			Console.WriteLine ("\tD_ifun\t= {0}", D_ifun);
+			Console.WriteLine ("\tD_rA\t= {0}", D_rA);
+			Console.WriteLine ("\tD_rB\t= {0}", D_rB);
+			Console.WriteLine ("\tD_valC\t= {0}", D_valC);
+			Console.WriteLine ("\tD_valP\t= {0}", D_valP);
+			Console.WriteLine ();
 			return;
 		}
 	}

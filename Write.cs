@@ -37,18 +37,26 @@ namespace PipeLine
 			return;
 		}
 		public void WriteClock() {
-			W_stat = m_stat;
-			W_icode = m_icode;
-			W_valE = m_valE;
-			W_valM = m_valM;
-			W_dstE = m_dstE;
-			W_dstM = m_dstM;
-			Console.WriteLine ("W_stat:{0}" ,W_stat);
-			Console.WriteLine ("W_icode:{0}" ,W_icode);
-			Console.WriteLine ("W_valE:{0}" ,W_valE);
-			Console.WriteLine ("W_valM:{0}" ,W_valM);
-			Console.WriteLine ("W_dstE:{0}" ,W_dstE);
-			Console.WriteLine ("W_dstM:{0}" ,W_dstM);
+			if (W_stall) {
+
+			} else if (W_bubble) {
+
+			} else {
+				W_stat = m_stat;
+				W_icode = m_icode;
+				W_valE = m_valE;
+				W_valM = m_valM;
+				W_dstE = m_dstE;
+				W_dstM = m_dstM;
+			}
+			Console.WriteLine ("WRITE BACK:");
+			Console.WriteLine ("\tW_stat\t= {0}" ,W_stat);
+			Console.WriteLine ("\tW_icode\t= {0}" ,W_icode);
+			Console.WriteLine ("\tW_valE\t= {0}" ,W_valE);
+			Console.WriteLine ("\tW_valM\t= {0}" ,W_valM);
+			Console.WriteLine ("\tW_dstE\t= {0}" ,W_dstE);
+			Console.WriteLine ("\tW_dstM\t= {0}" ,W_dstM);
+			Console.WriteLine ();
 			return;
 		}
 	}

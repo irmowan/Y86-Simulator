@@ -17,7 +17,7 @@ namespace PipeLine
 			return W_valM;
 		}
 		private void WriteRegister(int RegisterID, int val) {
-			if (RegisterID != RNONE & M_Cnd)
+			if (RegisterID != RNONE)
 				Register [RegisterID] = val;
 			return;
 		}

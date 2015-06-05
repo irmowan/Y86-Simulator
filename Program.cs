@@ -201,12 +201,14 @@ namespace PipeLine
 			E.ExecuteClock ();
 			M.MemoryClock ();
 			W.WriteClock ();
-
-			F.FetchMain ();
-			D.DecodeMain ();
-			E.ExecuteMain ();
+			Console.WriteLine ("eax {0} ecx{1} edx{2} ebx{3} esp {4} ebp {5} esi{6} edi{7}", Register [0], Register [1],
+				Register [2],Register[3],Register[4],Register[5],Register[6],Register[7]);
+			// Do Write/Memory/Execute first to ensure the forward logic.
+			W.WriteMain ();			
 			M.MemoryMain ();
-			W.WriteMain ();
+			E.ExecuteMain ();
+			D.DecodeMain ();
+			F.FetchMain ();
 		}
 
 		public static void Main (string[] args) {
@@ -217,7 +219,7 @@ namespace PipeLine
 			Console.WriteLine ("InsLength{0}",InsLength);
 			for (int i = 0; i < InsLength; ++i) {
 				pipeline.GoByOneStep (i);
-				if (f_pc > InsLength)
+				if (STAT == SHLT)
 					break;
 			}
 

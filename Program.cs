@@ -86,7 +86,7 @@ namespace PipeLine
 		public static int InsLength;
 		public const int MemLength = 10000000;
 
-		public void Constant() {
+		public void Init() {
 			D_stat = E_stat = M_stat = W_stat = SAOK;
 			D_rA = D_rB = E_srcA = E_srcB = E_dstE = E_dstM = M_dstE = M_dstM = RNONE;
 			F_predPC = 0;
@@ -171,9 +171,17 @@ namespace PipeLine
 			}
 			return null;
 		}
-		public void init() {
-			Constant ();
-		}
+
+		public static StreamWriter WriteFile() {
+			try {
+				StreamWriter filename = new StreamWriter("asum.txt", Encoding.Default);
+				Console.WriteLine ("File opened.");
+				return filename;
+			}
+			catch {
+				Console.WriteLine ("Output File open failed!");
+			}
+		} 
 
 		public void GoByOneStep(int step) {
 			Fetch F = new Fetch();
@@ -200,15 +208,16 @@ namespace PipeLine
 			E.ExecuteMain ();
 			D.DecodeMain ();
 			F.FetchMain ();
-			//Console.WriteLine ("eax {0} ecx{1} edx{2} ebx{3} esp {4} ebp {5} esi{6} edi{7}", Register [0], Register [1],
-			//	Register [2],Register[3],Register[4],Register[5],Register[6],Register[7]);
+		//	Console.WriteLine ("eax {0} ecx{1} edx{2} ebx{3} esp {4} ebp {5} esi{6} edi{7}", Register [0], Register [1],
+		//		Register [2],Register[3],Register[4],Register[5],Register[6],Register[7]);
 		}
 
 		public static void Main (string[] args) {
-			StreamReader File = LoadFile ();
+			StreamReader FileIn = LoadFile ();
+			StreamWriter FileOut = WriteFile ();
 			Program pipeline = new Program();
-			pipeline.init ();
-			pipeline.load (File);
+			pipeline.Init ();
+			pipeline.load (FileIn);
 			for (int i = 0; i < InsLength; ++i) {
 				pipeline.GoByOneStep (i);
 				if (STAT == SHLT) {

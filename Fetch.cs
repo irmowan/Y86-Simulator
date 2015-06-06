@@ -63,17 +63,17 @@ namespace PipeLine
 		public int GetValC(int addr) {
 			int ans = 0;				
 			// Converse these 4 bytes to get the correct number or address.
-			ans = InsMemory [addr + 3];
-			ans = (ans << 8) + InsMemory [addr + 2];
-			ans = (ans << 8) + InsMemory [addr + 1];
-			ans = (ans << 8) + InsMemory [addr];
+			ans = Memory [addr + 3];
+			ans = (ans << 8) + Memory [addr + 2];
+			ans = (ans << 8) + Memory [addr + 1];
+			ans = (ans << 8) + Memory [addr];
 			return ans;
 		}
 
 		public void FetchMain() {
 			f_pc = f__pc ();
-			imem_icode = InsMemory[f_pc]  >> 4;
-			imem_ifun = InsMemory[f_pc] & 0x0f;
+			imem_icode = Memory[f_pc]  >> 4;
+			imem_ifun = Memory[f_pc] & 0x0f;
 
 			f_icode = f__icode ();
 			f_ifun = f__ifun ();
@@ -82,8 +82,8 @@ namespace PipeLine
 			instr_valid = instr__valid ();
 			f_valP = f__valP ();
 			if (f_need_regids) {
-				f_rA = InsMemory [f_pc + 1] >> 4;
-				f_rB = InsMemory [f_pc + 1] & 0x0f;
+				f_rA = Memory [f_pc + 1] >> 4;
+				f_rB = Memory [f_pc + 1] & 0x0f;
 			} else {
 				f_rA = RNONE;
 				f_rB = RNONE;

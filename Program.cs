@@ -2,9 +2,6 @@
 using System.IO;
 using System.Text;
 using System.Collections;
-//using System.Linq;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
 
 namespace PipeLine
 {
@@ -83,11 +80,11 @@ namespace PipeLine
 		// Control Variables
 		protected static bool F_stall, F_bubble, D_stall, D_bubble, E_stall, E_bubble, M_stall, M_bubble, W_stall, W_bubble;
 		// Hardware
-		public static int[] InsMemory = new int[10000];
-		public static byte[] Memory = new byte[67108864];
+		//public static int[] InsMemory = new int[10000];
+		public static byte[] Memory = new byte[10000000];
 		public static int[] Register = new int[8];
 		public static int InsLength;
-		public const int MemLength = 67108864;
+		public const int MemLength = 10000000;
 
 		public void Constant() {
 			D_stat = E_stat = M_stat = W_stat = SAOK;
@@ -130,7 +127,7 @@ namespace PipeLine
 		}
 
 		private void InsMemoryAdd(int x) {
-			InsMemory [InsLength] = x;
+			Memory [InsLength] = (byte)x;
 			InsLength++;
 		}
 
@@ -161,12 +158,6 @@ namespace PipeLine
 					}
 				}
 			}
-			for (int i = 0; i < InsLength; ++i){
-				Console.Write ("{0}{1}",i,' ');
-				Console.WriteLine (InsMemory [i]);
-			}
-			Console.WriteLine ();
-			Console.WriteLine ();
 		}
 
 		public static StreamReader LoadFile() {
@@ -209,6 +200,8 @@ namespace PipeLine
 			E.ExecuteMain ();
 			D.DecodeMain ();
 			F.FetchMain ();
+			//Console.WriteLine ("eax {0} ecx{1} edx{2} ebx{3} esp {4} ebp {5} esi{6} edi{7}", Register [0], Register [1],
+			//	Register [2],Register[3],Register[4],Register[5],Register[6],Register[7]);
 		}
 
 		public static void Main (string[] args) {
@@ -216,11 +209,17 @@ namespace PipeLine
 			Program pipeline = new Program();
 			pipeline.init ();
 			pipeline.load (File);
-			Console.WriteLine ("InsLength{0}",InsLength);
 			for (int i = 0; i < InsLength; ++i) {
 				pipeline.GoByOneStep (i);
-				if (STAT == SHLT)
+				if (STAT == SHLT) {
 					break;
+				}
+				if (STAT == SADR) {
+					break;
+				}
+				if (STAT == SINS) {
+					break;
+				}
 			}
 
 		}

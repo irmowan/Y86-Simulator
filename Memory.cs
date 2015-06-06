@@ -32,7 +32,6 @@ namespace PipeLine
 				dmem_error = true;
 				return 0;
 			}
-
 			ans = Memory [addr + 3];
 			ans = (ans << 8) + Memory [addr + 2];
 			ans = (ans << 8) + Memory [addr + 1];

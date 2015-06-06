@@ -99,14 +99,6 @@ namespace PipeLine
 				D_valC = f_valC;
 				D_valP = f_valP;
 			}
-			Console.WriteLine ("DECODE:");
-			Console.WriteLine ("\tD_icode  \t= 0x{0}", D_icode.ToString ("x"));
-			Console.WriteLine ("\tD_ifun   \t= 0x{0}", D_ifun.ToString ("x"));
-			Console.WriteLine ("\tD_rA     \t= 0x{0}", D_rA.ToString ("x"));
-			Console.WriteLine ("\tD_rB     \t= 0x{0}", D_rB.ToString ("x"));
-			Console.WriteLine ("\tD_valC   \t= 0x{0}", D_valC.ToString ("x8"));
-			Console.WriteLine ("\tD_valP   \t= 0x{0}", D_valP.ToString ("x8"));
-			Console.WriteLine ();
 			return;
 		}
 	}

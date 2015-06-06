@@ -90,11 +90,12 @@ namespace PipeLine
 			D_stat = E_stat = M_stat = W_stat = SAOK;
 			D_rA = D_rB = E_srcA = E_srcB = E_dstE = E_dstM = M_dstE = M_dstM = RNONE;
 			F_predPC = 0;
-			D_icode = D_ifun = D_valC = D_valP = 0;
-			E_icode = E_ifun = E_valC = E_valA = E_valB = 0;
-			M_icode = M_ifun = M_valA = M_valE = 0;
+			D_icode = E_icode = M_icode = W_icode = INOP;
+			D_ifun = D_valC = D_valP = 0;
+			E_ifun = E_valC = E_valA = E_valB = 0;
+			M_ifun = M_valA = M_valE = 0;
 			M_Cnd = dmem_error = false;
-			W_icode = W_dstE = W_valE = W_dstM = W_valM = 0;
+			W_dstE = W_valE = W_dstM = W_valM = 0;
 
 			imem_icode = imem_ifun = f_icode = f_ifun = f_valC = f_valP = 0;
 			imem_error = false; 
@@ -160,39 +161,79 @@ namespace PipeLine
 			}
 		}
 
-		public static StreamReader LoadFile() {
+		public static StreamReader LoadInputFile() {
 			try{
 				StreamReader filename = new StreamReader("asum.yo", Encoding.Default);
-				Console.WriteLine("File opened.");
+				Console.WriteLine("Input File opened.");
 				return filename;
 			}
 			catch {
-				Console.WriteLine ("File not found!");
+				Console.WriteLine ("Input File not found!");
 			}
 			return null;
 		}
 
-		public static StreamWriter WriteFile() {
+		public static StreamWriter LoadOutputFile() {
 			try {
-				StreamWriter filename = new StreamWriter("asum.txt", Encoding.Default);
-				Console.WriteLine ("File opened.");
+				StreamWriter filename = new StreamWriter("asum.txt");
+				Console.WriteLine ("Output File opened.");
 				return filename;
 			}
 			catch {
 				Console.WriteLine ("Output File open failed!");
 			}
+			return null;
 		} 
 
-		public void GoByOneStep(int step) {
+		public void WriteFile(StreamWriter FileOut, int step, Fetch F, Decode D, Execute E, Memory M, Write W) {
+			FileOut.WriteLine ("Cycle_{0}", step);
+			FileOut.WriteLine("--------------------");
+			FileOut.WriteLine ("FETCH:");
+			FileOut.WriteLine ("\tF_predPC \t= 0x{0}", F_predPC.ToString ("x8"));
+			FileOut.WriteLine ();
+			FileOut.WriteLine ("DECODE:");
+			FileOut.WriteLine ("\tD_icode  \t= 0x{0}", D_icode.ToString ("x"));
+			FileOut.WriteLine ("\tD_ifun   \t= 0x{0}", D_ifun.ToString ("x"));
+			FileOut.WriteLine ("\tD_rA     \t= 0x{0}", D_rA.ToString ("x"));
+			FileOut.WriteLine ("\tD_rB     \t= 0x{0}", D_rB.ToString ("x"));
+			FileOut.WriteLine ("\tD_valC   \t= 0x{0}", D_valC.ToString ("x8"));
+			FileOut.WriteLine ("\tD_valP   \t= 0x{0}", D_valP.ToString ("x8"));
+			FileOut.WriteLine ();
+			FileOut.WriteLine ("EXECUTE:");
+			FileOut.WriteLine ("\tE_icode  \t= 0x{0}", E_icode.ToString ("x"));
+			FileOut.WriteLine ("\tE_ifun   \t= 0x{0}", E_ifun.ToString ("x"));
+			FileOut.WriteLine ("\tE_valC   \t= 0x{0}", E_valC.ToString ("x8"));
+			FileOut.WriteLine ("\tE_valA   \t= 0x{0}", E_valA.ToString ("x8"));
+			FileOut.WriteLine ("\tE_valB   \t= 0x{0}", E_valB.ToString ("x8"));
+			FileOut.WriteLine ("\tE_dstE   \t= 0x{0}", E_dstE.ToString ("x"));
+			FileOut.WriteLine ("\tE_dstM   \t= 0x{0}", E_dstM.ToString ("x"));
+			FileOut.WriteLine ("\tE_srcA   \t= 0x{0}", E_srcA.ToString ("x"));
+			FileOut.WriteLine ("\tE_srcB   \t= 0x{0}", E_srcB.ToString ("x"));
+			FileOut.WriteLine ();
+			FileOut.WriteLine ("MEMORY:");
+			FileOut.WriteLine ("\tM_icode  \t= 0x{0}", M_icode.ToString ("x"));
+			FileOut.WriteLine ("\tM_Bch    \t= {0}", M_Cnd);
+			FileOut.WriteLine ("\tM_valE   \t= 0x{0}", M_valE.ToString ("x8"));
+			FileOut.WriteLine ("\tM_valA   \t= 0x{0}", M_valA.ToString ("x8"));
+			FileOut.WriteLine ("\tM_dstE   \t= 0x{0}", M_dstE.ToString ("x"));
+			FileOut.WriteLine ("\tM_dstM   \t= 0x{0}", M_dstM.ToString ("x"));
+			FileOut.WriteLine ();
+			FileOut.WriteLine ("WRITE BACK:");
+			FileOut.WriteLine ("\tW_icode  \t= 0x{0}", W_icode.ToString ("x"));
+			FileOut.WriteLine ("\tW_valE   \t= 0x{0}", W_valE.ToString ("x8"));
+			FileOut.WriteLine ("\tW_valM   \t= 0x{0}", W_valM.ToString ("x8"));
+			FileOut.WriteLine ("\tW_dstE   \t= 0x{0}", W_dstE.ToString ("x"));
+			FileOut.WriteLine ("\tW_dstM   \t= 0x{0}", W_dstM.ToString ("x"));
+			FileOut.WriteLine ();
+		}
+
+		public void GoByOneStep(int step, StreamWriter FileOut) {
 			Fetch F = new Fetch();
 			Decode D = new Decode();
 			Execute E = new Execute();
 			Memory M = new Memory();
 			Write W = new Write();
 			Control C = new Control ();
-
-			Console.WriteLine ("Cycle_{0}", step);
-			Console.WriteLine("--------------------");
 
 			// Do Control Logic Part first to ensure the stall or bubble stat.
 			C.ControlMain ();
@@ -202,24 +243,24 @@ namespace PipeLine
 			M.MemoryClock ();
 			W.WriteClock ();
 
+			WriteFile (FileOut, step, F, D, E, M, W);
+
 			// Do Write/Memory/Execute first to ensure the forward logic.
 			W.WriteMain ();			
 			M.MemoryMain ();
 			E.ExecuteMain ();
 			D.DecodeMain ();
 			F.FetchMain ();
-		//	Console.WriteLine ("eax {0} ecx{1} edx{2} ebx{3} esp {4} ebp {5} esi{6} edi{7}", Register [0], Register [1],
-		//		Register [2],Register[3],Register[4],Register[5],Register[6],Register[7]);
 		}
 
 		public static void Main (string[] args) {
-			StreamReader FileIn = LoadFile ();
-			StreamWriter FileOut = WriteFile ();
+			StreamReader FileIn = LoadInputFile ();
+			StreamWriter FileOut = LoadOutputFile ();
 			Program pipeline = new Program();
 			pipeline.Init ();
 			pipeline.load (FileIn);
 			for (int i = 0; i < InsLength; ++i) {
-				pipeline.GoByOneStep (i);
+				pipeline.GoByOneStep (i, FileOut);
 				if (STAT == SHLT) {
 					break;
 				}

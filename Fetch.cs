@@ -107,9 +107,6 @@ namespace PipeLine
 			} else {
 				F_predPC = f_predPC;
 			}
-			Console.WriteLine ("FETCH:");
-			Console.WriteLine ("\tF_predPC \t= 0x{0}", F_predPC.ToString ("x8"));
-			Console.WriteLine ();
 			return;
 		}
 	}

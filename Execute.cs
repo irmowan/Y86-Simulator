@@ -155,17 +155,6 @@ namespace PipeLine
 				E_srcA = d_srcA;
 				E_srcB = d_srcB;
 			}
-			Console.WriteLine ("EXECUTE:");
-			Console.WriteLine ("\tE_icode  \t= 0x{0}", E_icode.ToString ("x"));
-			Console.WriteLine ("\tE_ifun   \t= 0x{0}", E_ifun.ToString ("x"));
-			Console.WriteLine ("\tE_valC   \t= 0x{0}", E_valC.ToString ("x8"));
-			Console.WriteLine ("\tE_valA   \t= 0x{0}", E_valA.ToString ("x8"));
-			Console.WriteLine ("\tE_valB   \t= 0x{0}", E_valB.ToString ("x8"));
-			Console.WriteLine ("\tE_dstE   \t= 0x{0}", E_dstE.ToString ("x"));
-			Console.WriteLine ("\tE_dstM   \t= 0x{0}", E_dstM.ToString ("x"));
-			Console.WriteLine ("\tE_srcA   \t= 0x{0}", E_srcA.ToString ("x"));
-			Console.WriteLine ("\tE_srcB   \t= 0x{0}", E_srcB.ToString ("x"));
-			Console.WriteLine ();
 			return;
 		}
 	}

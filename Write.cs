@@ -59,13 +59,6 @@ namespace PipeLine
 				W_dstE = m_dstE;
 				W_dstM = m_dstM;
 			}
-			Console.WriteLine ("WRITE BACK:");
-			Console.WriteLine ("\tW_icode  \t= 0x{0}", W_icode.ToString ("x"));
-			Console.WriteLine ("\tW_valE   \t= 0x{0}", W_valE.ToString ("x8"));
-			Console.WriteLine ("\tW_valM   \t= 0x{0}", W_valM.ToString ("x8"));
-			Console.WriteLine ("\tW_dstE   \t= 0x{0}", W_dstE.ToString ("x"));
-			Console.WriteLine ("\tW_dstM   \t= 0x{0}", W_dstM.ToString ("x"));
-			Console.WriteLine ();
 			return;
 		}
 	}

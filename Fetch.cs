@@ -5,7 +5,7 @@ namespace PipeLine
 	class Fetch:Program {
 		private int f__pc () {
 			if (M_icode == IJXX && !M_Cnd) return M_valA;
-			if (M_icode == IRET) return W_valM;
+			if (W_icode == IRET) return W_valM;
 			return F_predPC;
 		}
 		private int f__icode () {

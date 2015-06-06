@@ -71,7 +71,7 @@ namespace PipeLine
 				// Nothing.
 			} else if (M_bubble) {
 				M_stat = SBUB;
-				M_icode = 0;
+				M_icode = INOP;
 				M_Cnd = false;
 				M_valE = 0;
 				M_valA = 0;

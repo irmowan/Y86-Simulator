@@ -134,7 +134,7 @@ namespace PipeLine
 				// Nothing.
 			} else if (E_bubble) {
 				E_stat = SBUB;
-				E_icode = 0;
+				E_icode = INOP;
 				E_ifun = 0;
 				E_valC = 0;
 				E_valA = 0;

@@ -18,7 +18,7 @@
   0x02c: 308214000000 | 	irmovl array,%edx
   0x032: a028         | 	pushl %edx      # Push array
   0x034: 803a000000   | 	call Sum	# Sum(array, 4)
-  0x039: 10           | 	halt
+  0x039: 00           | 	halt
                       | 
                       | /* $begin sum-ys 0 */
                       | 	# int Sum(int *Start, int Count)

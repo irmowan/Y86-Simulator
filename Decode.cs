@@ -84,7 +84,7 @@ namespace PipeLine
 				// Nothing.
 			} else if (D_bubble) {
 				D_stat = SBUB;
-				D_icode = 0;
+				D_icode = INOP;
 				D_ifun = 0;
 				D_rA = RNONE;
 				D_rB = RNONE;

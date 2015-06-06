@@ -103,7 +103,7 @@ namespace PipeLine
 			if (F_stall) {
 				// Nothing.
 			} else if (F_bubble) {
-				F_predPC = 0;		// Fetch doesn't have a bubble.
+				F_predPC = INOP;		// Fetch doesn't have a bubble.
 			} else {
 				F_predPC = f_predPC;
 			}

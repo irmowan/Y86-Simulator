@@ -46,7 +46,7 @@ namespace PipeLine
 				// Nothing.
 			} else if (W_bubble) {
 				W_stat = SBUB;
-				W_icode = 0;
+				W_icode = INOP;
 				W_valE = 0;
 				W_valM = 0;
 				W_dstE = RNONE;

@@ -6,8 +6,8 @@ using System.Collections;
 namespace PipeLine
 {
 	class Program{
-		protected const int INOP = 0;
-		protected const int IHALT = 1;
+		protected const int IHALT = 0;
+		protected const int INOP = 1;
 		protected const int IRRMOVL = 2;
 		protected const int IIRMOVL = 3;
 		protected const int IRMMOVL = 4;

@@ -57,7 +57,6 @@ namespace PipeLine
 				return W_valE;
 			return d_rvalB;
 		}
-
 		private int ReadRegister(int RegisterID) {
 			if (RegisterID != RNONE) 
 				return Register[RegisterID];
@@ -79,6 +78,7 @@ namespace PipeLine
 			d_valC = D_valC;
 			return;
 		}
+
 		public void DecodeClock() {
 			if (D_stall) {
 				// Nothing.

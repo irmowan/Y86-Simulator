@@ -51,7 +51,6 @@ namespace PipeLine
 				return f_valC;
 			return f_valP;
 		}
-
 		private int f__valP() {
 			int ans = f_pc;
 			ans = ans + 1;
@@ -61,7 +60,6 @@ namespace PipeLine
 				ans = ans + 4;
 			return ans;
 		}
-
 		public int GetValC(int addr) {
 			int ans = 0;				
 			// Converse these 4 bytes to get the correct number or address.
@@ -71,6 +69,7 @@ namespace PipeLine
 			ans = (ans << 8) + InsMemory [addr];
 			return ans;
 		}
+
 		public void FetchMain() {
 			f_pc = f__pc ();
 			imem_icode = InsMemory[f_pc]  >> 4;

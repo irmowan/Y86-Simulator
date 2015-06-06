@@ -32,6 +32,7 @@ namespace PipeLine
 				dmem_error = true;
 				return 0;
 			}
+
 			ans = Memory [addr + 3];
 			ans = (ans << 8) + Memory [addr + 2];
 			ans = (ans << 8) + Memory [addr + 1];
@@ -42,7 +43,6 @@ namespace PipeLine
 			dmem_error = false;
 			if (addr > MemLength)
 				dmem_error = true;
-
 			Memory [addr] = (byte)(val & 0xff);
 			val = val >> 8;
 			Memory [addr + 1] = (byte)(val & 0xff);
@@ -52,11 +52,11 @@ namespace PipeLine
 			Memory [addr + 3] = (byte)(val & 0xff);
 			return;
 		}
+
 		public void MemoryMain() {
 			m_addr = mem__addr ();
 			m_read = mem__read ();
 			m_write = mem__write ();
-
 			if (m_read) m_valM = ReadMemory (m_addr);
 			if (m_write) WriteMemory (m_addr, M_valA);
 			m_stat = m__stat ();
@@ -66,6 +66,7 @@ namespace PipeLine
 			m_dstM = M_dstM;
 			return;
 		}
+
 		public void MemoryClock() {
 			if (M_stall) {
 				// Nothing.

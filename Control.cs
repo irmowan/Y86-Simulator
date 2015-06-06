@@ -73,6 +73,7 @@ namespace PipeLine
 		private bool W__bubble() {
 			return false;
 		}
+
 		public void ControlMain ()
 		{
 			F_stall = F__stall ();

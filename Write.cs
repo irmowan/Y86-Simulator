@@ -2,7 +2,6 @@
 
 namespace PipeLine
 {
-
 	class Write:Program {
 		private int w__dstE() {
 			return W_dstE;
@@ -30,6 +29,7 @@ namespace PipeLine
 				return SAOK;
 			return W_stat;
 		}
+
 		public void WriteMain() {
 			w_dstE = w__dstE ();
 			w_dstM = w__dstM ();
@@ -40,6 +40,7 @@ namespace PipeLine
 			STAT = Stat ();
 			return;
 		}
+
 		public void WriteClock() {
 			if (W_stall) {
 				// Nothing.

@@ -47,7 +47,6 @@ namespace PipeLine
 				return RNONE;
 			return E_dstE;
 		}
-
 		private int ALU(int valA, int valB, int ifun) {
 			int ans = 0;
 			switch (ifun) {
@@ -114,6 +113,7 @@ namespace PipeLine
 			}
 			return true;
 		}
+
 		public void ExecuteMain() {
 			e_aluA = aluA ();
 			e_aluB = aluB ();
@@ -128,6 +128,7 @@ namespace PipeLine
 			e_dstM = E_dstM;
 			return;
 		}
+
 		public void ExecuteClock() {
 			if (E_stall) {
 				// Nothing.

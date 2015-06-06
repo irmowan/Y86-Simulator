@@ -17,8 +17,12 @@ namespace PipeLine
 			return W_valM;
 		}
 		private void WriteRegister(int RegisterID, int val) {
-			if (RegisterID != RNONE)
-				Register [RegisterID] = val;
+			if (RegisterID != RNONE) {
+				if (W_icode != IRRMOVL)
+					Register [RegisterID] = val;
+				if (W_icode == IRRMOVL && M_Cnd)		// Conditional Move
+					Register [RegisterID] = val;
+			}
 			return;
 		}
 		private int Stat() {

@@ -33,12 +33,8 @@ namespace PipeLine
 			flag2 = false;
 			if (m_stat == SADR || m_stat == SINS || m_stat == SHLT)
 				flag1 = true;
-			else
-				flag1 = false;
 			if (W_stat == SADR || W_stat == SINS || W_stat == SHLT)
 				flag2 = true;
-			else
-				flag2 = false;
 			if (E_icode == IOPL && !flag1 && !flag2)
 				return true;
 			return false;
@@ -116,7 +112,7 @@ namespace PipeLine
 					return !(SF ^ OF) & !ZF;
 				}
 			}
-			return false;
+			return true;
 		}
 		public void ExecuteMain() {
 			e_aluA = aluA ();

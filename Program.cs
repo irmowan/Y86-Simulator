@@ -97,6 +97,7 @@ namespace PipeLine
 			M_Cnd = dmem_error = false;
 			W_dstE = W_valE = W_dstM = W_valM = 0;
 
+			f_rA = f_rB = RNONE;
 			imem_icode = imem_ifun = f_icode = f_ifun = f_valC = f_valP = 0;
 			imem_error = false; 
 			instr_valid = true;
@@ -225,6 +226,7 @@ namespace PipeLine
 			FileOut.WriteLine ("\tW_dstE   \t= 0x{0}", W_dstE.ToString ("x"));
 			FileOut.WriteLine ("\tW_dstM   \t= 0x{0}", W_dstM.ToString ("x"));
 			FileOut.WriteLine ();
+			FileOut.Flush ();
 		}
 
 		public void GoByOneStep(int step, StreamWriter FileOut) {

@@ -1,0 +1,144 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Y86 Simulator</title>
+	<meta charset="utf-8" />
+	<script language= "javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+</head>
+<style type = "text/css">
+	.page {
+	height: 768px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	padding-left: 5%;
+	padding-right: 5%;
+	width: 90%;
+	display: block;
+}
+li {
+	display: list-item;
+}
+</style>
+<body>
+<div class="page" id="page1" style="background-color: #9D7BFF;">
+	<div id="page1-title" style="line-height: 500px; font-weight: bold; text-align: center; font-size: 72px; width: 100%; display: block;">
+		Y86 Simulator
+	</div>
+	<div id="page1-author" style="line-height: 50px; text-align: right; font-size: 32px; width: 100%; display: block; font-weight: bold;">
+		<div style="margin-right: 50px; float: right; text-align:center;" >
+			<table border="0">
+				<tr><td>万一木 13307130174</td></tr>
+				<tr><td>2015.6</td></tr>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="page" id="page2" style="background-color: #70E2FF">
+	<div id="page2-title" style="line-height: 150px; font-weight: bold; font-size: 48px;">概述</div>
+	<div id="page2-content" style="height: 400px; width: 100%;">
+		<ul style="display: block;">
+			<li id="page3-content-leftContent" style="width: 50%; display: inline;  float: left; text-indent: 16px; font-size: 24px;">
+				<div style="display: inline;">
+					<h2 style="text-align: left; display: block;">语言、环境、工具</h1>
+					<p>语言：C#</p>
+					<p>环境：.Net Framework (OS X上也可配置)</p>
+					<p>工具：Xamarin Studio / Visual Studio</p>
+				</div>
+			</li>
+			<li id="page3-content-rightContent" style="text-indent: 16px; width: 50%;  display: inline;  float: left; font-size: 24px;">
+				<div style="display:inline;">
+					<h2 style="text-align: left; display: block;">Why C#?</h1>
+					<p>语法</p>
+					<p>面向对象</p>
+					<p>窗体GUI</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="page" id="page3" style="background-color: #CAFF70;">
+	<div id="page3-title" style="line-height: 150px; font-weight: bold; font-size: 48px;">功能</div>
+	<div id="page3-content" style="height: 350px; width: 100%;">
+		<ul style="display: block;">
+			<li id="page3-content-leftContent" style="width: 50%; display: inline;  float: left; text-indent: 16px; font-size: 24px;">
+				<h1 style="text-align: center; display: block;">功能</h1>
+				<p>输入输出文件</p>
+				<p>流水线指令</p>
+				<p>流水线控制逻辑</p>
+				<p>单步执行、自动执行</p>
+				<p>暂停、回退</p>
+				<p>加载、重置</p>
+			</li>
+			<li id="page3-content-rightContent" style="text-indent: 16px; width: 50%;  display: inline;  float: left; font-size: 24px;">
+				<h1 style="text-align: center; display: block;">展示内容</h1>
+				<p>流水线寄存器各阶段状态</p>
+				<p>当前执行指令</p>
+				<p>当前周期、有效指令数、CPI</p>
+				<p>寄存器展示，动画效果</p>
+				<p>存储器查询</p>
+				<p>错误提示</p>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="page4" class="page" style="background-color: #E4EE48">
+	<div id="page4-title" style="line-height: 150px; font-weight: bold; font-size: 48px;">项目框架</div>
+	<div id="page4-content" style="height: 300px; width: 100%;">
+		<ul style="display: block;">
+			<li id="page4-content-leftContent" style="width: 50%; display: inline;  float: left; text-indent: 16px; font-size: 20px;">
+				<h1 style="text-align: center; display: block;">内核</h1>
+				<p>命名空间PipeLine</p>
+				<p>一个主类，六个继承类</p>
+				<p>共享常量、流水线寄存器变量</p>
+				<p>主类：文件处理、操控继承类、控制时钟、调控控制逻辑</p>
+				<p>继承类：取指、译码、运行、访存、写回、控制</p>
+				<p>较好的保护机制，根据需求设置私有公有</p>
+			</li>
+			<li id="page4-content-rightContent" style="text-indent: 16px; width: 50%;  display: inline;  float: left; font-size: 20px;">
+				<h1 style="text-align: center; display: block;">窗体</h1>
+				<p>命名空间Form</p>
+				<p>淡色调明亮风</p>
+				<p>事件模块化，耦合性低</p>
+				<p>相对独立，不干涉内核操作</p>
+				<p></p>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="page5" class="page" style="background-color: #FFAC53;">
+	<div id="page5-title" style="line-height: 150px; font-weight: bold; font-size: 48px;">成品展示</div>
+	<div id="page5-content" style="height: 350px; width: 100%;">
+		<img src="show.png" height="140%"/>
+	</div>
+</div>
+<div id="page6" class="page" style="background-color: #FF87A8">
+	<div id="page6-title" style="line-height: 384px; font-weight: bold; font-size: 100px; text-align: center;">
+		<p>Thank you!</p>
+	</div>
+</div>
+<script language="javascript">
+	var page = 1;
+	function lastPage() {
+		if(page <= 1) return ;
+		-- page;
+		$('html body').animate({
+			scrollTop: $('#page' + page.toString()).offset().top
+		}, 2000);
+	}
+
+	function nextPage() {
+		if(page >= 6) return ;
+		++ page;
+		$('html body').animate({
+			scrollTop: $('#page' + page.toString()).offset().top
+		}, 2000);
+	}
+
+	$(document).keydown(function(e) {
+		if(e.keyCode == 38) lastPage(); // Up
+		else if(e.keyCode == 40) nextPage(); // Down
+	});
+</script>
+</body>
+</html>
